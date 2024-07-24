@@ -61,5 +61,5 @@ https://github.com/open-mmlab/mmdetection/tree/main/configs/mask_rcnn
 ## Execute
 Execute following command.
 ```
-$ python main.py c
+$ python main.py configs/mask_rcnn/mask-rcnn_r50_fpn_2x_coco.py mask_rcnn_r50_fpn_2x_coco_bbox_mAP-0.392__segm_mAP-0.354_20200505_003907-3e542a40.pth {your video data}
 ```
