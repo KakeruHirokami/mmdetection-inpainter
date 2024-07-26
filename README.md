@@ -3,6 +3,8 @@ This repository provides functionality to inpaint specific objects in video usin
 
 ## example
 
+This example is to inpaint human.
+
 before|after
 ---|---
 ![before](before.gif "before")|![after](after.gif "after")|
