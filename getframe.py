@@ -6,6 +6,7 @@ def getframe(video_path):
     os.makedirs(dirname, exist_ok=True) 
 
     cap = cv2.VideoCapture(video_path)
+    total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
 
     frame_number = 0
     while cap.isOpened():
@@ -13,7 +14,7 @@ def getframe(video_path):
         if not ret:
             break
         
-        print(f'[1/3]Convert video to frame images {frame_number}')
+        print(f'[1/3]Convert video to frame images {frame_number}/{total_frames-1}')
         
         # フレームを保存する場合は以下のコードを使用
         framename = str(frame_number).zfill(5)

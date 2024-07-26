@@ -2,7 +2,7 @@ import numpy as np
 import cv2
 import os
 
-def inpaint(framedir, maskframedir, outfile, fps, fourcc=cv2.VideoWriter_fourcc('m','p','4', 'v')):
+def inpaint(framedir, maskframedir, outfile, fps, fourcc=cv2.VideoWriter_fourcc('H','2','6', '4')):
     # 動画作成
     img_rep = cv2.imread(f'{framedir}/00000.png')
     h, w, ch = img_rep.shape
@@ -14,6 +14,9 @@ def inpaint(framedir, maskframedir, outfile, fps, fourcc=cv2.VideoWriter_fourcc(
         imagename = str(i).zfill(5)
         img = cv2.imread(f'{framedir}/{imagename}.png')
         mask = cv2.imread(f'{maskframedir}/{imagename}.png', 0)
+        if img is None or mask is None:
+            # When the file is not found, break the for loop because there may be cases where the value is incorrect.
+            break
 
         # Inpainting
         dst11 = cv2.inpaint(img,mask,0,cv2.INPAINT_TELEA)
@@ -23,7 +26,7 @@ def inpaint(framedir, maskframedir, outfile, fps, fourcc=cv2.VideoWriter_fourcc(
         #dst22 = cv2.inpaint(img,mask,3,cv2.INPAINT_NS)
         #dst23 = cv2.inpaint(img,mask,10,cv2.INPAINT_NS)
 
-        print(f"[3/3] Inpainting {imagename}")
+        print(f"[3/3] Inpainting {i}/{filenum-1}")
 
         # make video
         video.write(dst11)

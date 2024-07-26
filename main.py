@@ -47,10 +47,8 @@ def parse_args():
     return args
 
 def main():
+    """
     args = parse_args()
-
-    # Convert video to frame images
-    framedir = getframe.getframe(args.video)
 
     # build the model from a config file and a checkpoint file
     model = init_detector(args.config, args.checkpoint, device=args.device)
@@ -58,6 +56,8 @@ def main():
     model.cfg.test_dataloader.dataset.pipeline[0].type = 'LoadImageFromNDArray'
     test_pipeline = Compose(model.cfg.test_dataloader.dataset.pipeline)
 
+    # Convert video to frame images
+    framedir = getframe.getframe(args.video)
 
     maskframedir = f"mask-{framedir}"
     os.makedirs(f"{maskframedir}", exist_ok=True)
@@ -66,7 +66,7 @@ def main():
     for no in range(filenum):
         nostr = str(no).zfill(5)
         path = f"{framedir}/{nostr}.png"
-        print(f"[2/3]Executing instance segmentation {path}")
+        print(f"[2/3]Executing instance segmentation {no}/{filenum-1}")
         frame = cv2.imread(path)
         # Execute instance segmentation
         result = inference_detector(model, frame, test_pipeline=test_pipeline)
@@ -98,15 +98,20 @@ def main():
         res = res[:, :, 0]
 
         cv2.imwrite(f'{maskframedir}/{nostr}.png', np.array(res, dtype='uint8'))
-    
+
     fps = get_video_fps(args.video)
+    outfile = f"mask-{framedir}.mp4"
+    """
+    framedir = "20240525_114131000_iOS"
+    maskframedir = "mask-20240525_114131000_iOS"
+    fps = 60
     outfile = f"mask-{framedir}.mp4"
     inpaint.inpaint(framedir, maskframedir, outfile, fps)
     # Post-processing
     print("Post-processing")
     # Remove directory
-    shutil.rmtree(framedir)
-    shutil.rmtree(maskframedir)
+    # shutil.rmtree(framedir)
+    # shutil.rmtree(maskframedir)
 
 if __name__ == '__main__':
     main()

@@ -1,6 +1,14 @@
 # Overview
 This repository provides functionality to inpaint specific objects in video using a mmdetection.
 
+## example
+
+before|after
+---|---
+![before](before.gif "before")|![after](after.gif "after")|
+
+By the way, my amazing wife is in the video
+
 # Requirements
 This repository requires the following tools:
 - windows
