@@ -2,7 +2,7 @@ import numpy as np
 import cv2
 import os
 
-def inpaint(framedir, maskframedir, outfile, fps, fourcc=cv2.VideoWriter_fourcc('H','2','6', '4')):
+def inpaint(framedir, maskframedir, outfile, fps, fourcc=cv2.VideoWriter_fourcc(*'mp4v')):
     # 動画作成
     img_rep = cv2.imread(f'{framedir}/00000.png')
     h, w, ch = img_rep.shape

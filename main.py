@@ -47,7 +47,6 @@ def parse_args():
     return args
 
 def main():
-    """
     args = parse_args()
 
     # build the model from a config file and a checkpoint file
@@ -100,11 +99,6 @@ def main():
         cv2.imwrite(f'{maskframedir}/{nostr}.png', np.array(res, dtype='uint8'))
 
     fps = get_video_fps(args.video)
-    outfile = f"mask-{framedir}.mp4"
-    """
-    framedir = "20240525_114131000_iOS"
-    maskframedir = "mask-20240525_114131000_iOS"
-    fps = 60
     outfile = f"mask-{framedir}.mp4"
     inpaint.inpaint(framedir, maskframedir, outfile, fps)
     # Post-processing
